@@ -19,7 +19,7 @@ PORT=<SERVER_PORT>
 FIREBASE_FUNCTIONS_BASE_URL=<YOUR_FIREBASE_FUNCTIONS_BASE_URL>
 ```
 
-Replace **<YOUR_FIREBASE_FUNCTIONS_BASE_URL>** with the base URL of your Firebase Functions. This will be used to communicate with your Firebase Functions from the Express server.
+Replace `<YOUR_FIREBASE_FUNCTIONS_BASE_URL>` with the base URL of your Firebase Functions. This will be used to communicate with your Firebase Functions from the Express server.
 
 Once your Functions are deployed and your **.env** file is set up, you can start the Express server by running yarn `start:dev`. The server will listen on port **3000** by default, but you can customize this by setting the `PORT` environment variable.
 
