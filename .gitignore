@@ -74,3 +74,6 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+
+# Firebase private key
+firebase-pk.json
