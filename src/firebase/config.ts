@@ -16,8 +16,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 
-admin.initializeApp({
-  credential: admin.credential.cert(firebaseConfig),
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(firebaseConfig),
+// });
 
-admin.firestore().settings({ ignoreUndefinedProperties: true });
+// admin.firestore().settings({ ignoreUndefinedProperties: true });
