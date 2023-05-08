@@ -2,6 +2,7 @@ import { inject, container, singleton } from "tsyringe";
 import { CarsRepository } from "./cars.repository";
 import { CarCreateDto } from "./dto/car-create.dto";
 container.resolve(CarsRepository);
+container.register("CarsRepository", CarsRepository);
 
 @singleton()
 export class CarsService {
@@ -13,6 +14,6 @@ export class CarsService {
   }
 
   async create(carCreateDto: CarCreateDto) {
-    return await this.carsRepository.save(carCreateDto);
+    // return await this.carsRepository.save(carCreateDto);
   }
 }
