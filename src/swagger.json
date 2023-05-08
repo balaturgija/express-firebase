@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.0",
+  "components": {},
+  "info": {
+    "version": "1.0.0",
+    "title": "Firebase Express REST API Documentations",
+    "description": "Description"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "Development server"
+    }
+  ]
+}
