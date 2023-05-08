@@ -14,6 +14,6 @@ export class CarsService {
   }
 
   async create(carCreateDto: CarCreateDto) {
-    // return await this.carsRepository.save(carCreateDto);
+    return await this.carsRepository.save(carCreateDto);
   }
 }

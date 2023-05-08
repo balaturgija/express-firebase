@@ -4,12 +4,15 @@ import { CarUpdateDto } from "./dto/car-update.dto";
 import { db } from "../main";
 
 export class CarsRepository {
-  docRef = db.collection("cars");
   findAll = async () => {
-    return this.docRef.get();
+    try {
+      return await db.collection("cars").get();
+    } catch (error) {
+      console.log(error);
+    }
   };
   getById = async (id: string) => {
-    return this.docRef.doc(id).get();
+    return db.doc(id).get();
   };
   save = async (carCreateDto: CarCreateDto) => {
     const id = v4();
@@ -17,17 +20,17 @@ export class CarsRepository {
       id: id,
       carCreateDto,
     };
-    await this.docRef.doc(id).set(carCreate);
+    await db.doc(id).set(carCreate);
     return carCreate;
   };
   update = async (id: string, carUpdateDto: CarUpdateDto) => {
-    await this.docRef.doc(id).update({ ...carUpdateDto });
+    await db.doc(id).update({ ...carUpdateDto });
     return {
       id,
       carUpdateDto,
     };
   };
   delete = async (id: string) => {
-    await this.docRef.doc(id).delete();
+    await db.doc(id).delete();
   };
 }

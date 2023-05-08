@@ -6,6 +6,16 @@ import router from "./router";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerDefinition from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
+import { initializeApp, cert } from "firebase-admin/app";
+import * as admin from "firebase-admin";
+
+const serviceAccount = require("./firebase-pk.json");
+
+initializeApp({
+  credential: cert(serviceAccount),
+});
+
+export const db = admin.firestore();
 
 dotenv.config({
   path: path.resolve(".env"),
