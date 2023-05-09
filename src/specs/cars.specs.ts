@@ -54,7 +54,7 @@
  *          tags:
  *              - cars
  *      post:
- *          requestBoy:
+ *          requestBody:
  *              content:
  *                  application/json:
  *                      schema:
