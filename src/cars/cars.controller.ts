@@ -12,5 +12,23 @@ export class CarsController {
     return res.status(200).send(result);
   };
 
-  createCollection = async (req: Request, res: Response) => {};
+  create = async (req: Request, res: Response) => {
+    const result = await this.carsService.create(req.body);
+    return res.status(201).send(result);
+  };
+
+  update = async (req: Request, res: Response) => {
+    const result = await this.carsService.update(req.params.id, req.body);
+    return res.status(201).send(result);
+  };
+
+  getById = async (req: Request, res: Response) => {
+    const result = await this.carsService.getById(req.params.id);
+    return res.status(200).send(result);
+  };
+
+  delete = async (req: Request, res: Response) => {
+    const result = await this.carsService.getById(req.params.id);
+    return res.status(200).send(result);
+  };
 }

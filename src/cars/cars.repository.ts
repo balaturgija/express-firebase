@@ -11,26 +11,37 @@ export class CarsRepository {
       console.log(error);
     }
   };
+
   getById = async (id: string) => {
-    return db.doc(id).get();
+    return db.collection("cars").doc(id).get();
   };
-  save = async (carCreateDto: CarCreateDto) => {
-    const id = v4();
-    const carCreate = {
-      id: id,
-      carCreateDto,
-    };
-    await db.doc(id).set(carCreate);
-    return carCreate;
+
+  create = async (carCreateDto: CarCreateDto) => {
+    try {
+      const id = v4();
+      const carCreate = {
+        id: id,
+        ...carCreateDto,
+      };
+      await db.collection("cars").doc(id).set(carCreate);
+      return carCreate;
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   update = async (id: string, carUpdateDto: CarUpdateDto) => {
-    await db.doc(id).update({ ...carUpdateDto });
+    await db
+      .collection("cars")
+      .doc(id)
+      .update({ ...carUpdateDto });
     return {
       id,
-      carUpdateDto,
+      ...carUpdateDto,
     };
   };
+
   delete = async (id: string) => {
-    await db.doc(id).delete();
+    await db.collection("cars").doc(id).delete();
   };
 }

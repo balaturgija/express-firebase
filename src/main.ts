@@ -25,8 +25,11 @@ const app: any = express();
 
 const swaggerDocs = swaggerJSDoc({
   swaggerDefinition,
-  apis: ["/src"],
+  apis: [path.join(__dirname, "..", "src", "specs", "*.ts")],
 });
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/", router);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
