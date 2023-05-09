@@ -1,15 +1,11 @@
-import { inject, container, singleton } from "tsyringe";
+import { injectable } from "tsyringe";
 import { CarsRepository } from "./cars.repository";
 import { CarCreateDto } from "./dto/car-create.dto";
 import { CarUpdateDto } from "./dto/car-update.dto";
-container.resolve(CarsRepository);
-container.register("CarsRepository", CarsRepository);
 
-@singleton()
+@injectable()
 export class CarsService {
-  constructor(
-    @inject("CarsRepository") private readonly carsRepository: CarsRepository
-  ) {}
+  constructor(private readonly carsRepository: CarsRepository) {}
 
   findAll = async () => {
     return await this.carsRepository.findAll();

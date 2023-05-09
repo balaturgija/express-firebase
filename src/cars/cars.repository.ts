@@ -2,7 +2,8 @@ import { CarCreateDto } from "./dto/car-create.dto";
 import { v4 } from "uuid";
 import { CarUpdateDto } from "./dto/car-update.dto";
 import { db } from "../database";
-
+import { injectable } from "tsyringe";
+@injectable()
 export class CarsRepository {
   dbRef = db.collection("cars");
 
