@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validate, ValidationError } from "class-validator";
+import { HttpException } from "../http.error";
 
 export const validateBody = (dtoToValidate: ClassConstructor<unknown>) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    if (!req.body) next({ statusCode: 400, message: "Model is not defined." });
+    if (!req.body) next(new HttpException(400, "Model is not defined"));
 
-    const object: any = plainToInstance(dtoToValidate, req.body, {
+    const object: any = await plainToInstance(dtoToValidate, req.body, {
       excludeExtraneousValues: true,
     });
 
@@ -16,7 +17,8 @@ export const validateBody = (dtoToValidate: ClassConstructor<unknown>) => {
     });
 
     if (errors.length > 0) {
-      return next({ statusCode: 400, message: errors });
+      const errorMap = buildErrors(errors);
+      return next(new HttpException(400, errorMap));
     }
 
     next();
