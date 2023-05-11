@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import { CarUpdateDto } from "./dto/car-update.dto";
 import { db } from "../database";
 import { injectable } from "tsyringe";
+import { HttpException } from "../http.error";
 @injectable()
 export class CarsRepository {
   dbRef = db.collection("cars");
@@ -20,17 +21,14 @@ export class CarsRepository {
   };
 
   create = async (carCreateDto: CarCreateDto) => {
-    try {
-      const id = v4();
-      const carCreate = {
-        id: id,
-        ...carCreateDto,
-      };
-      await this.dbRef.doc(id).set(carCreate);
-      return carCreate;
-    } catch (error) {
-      console.log(error);
-    }
+    throw new HttpException();
+    const id = v4();
+    const carCreate = {
+      id: id,
+      ...carCreateDto,
+    };
+    await this.dbRef.doc(id).set(carCreate);
+    return carCreate;
   };
 
   update = async (id: string, carUpdateDto: CarUpdateDto) => {

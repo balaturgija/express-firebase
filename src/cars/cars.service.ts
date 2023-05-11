@@ -1,4 +1,5 @@
 import { injectable } from "tsyringe";
+import { HttpException } from "../http.error";
 import { CarsRepository } from "./cars.repository";
 import { CarCreateDto } from "./dto/car-create.dto";
 import { CarUpdateDto } from "./dto/car-update.dto";
@@ -12,7 +13,11 @@ export class CarsService {
   };
 
   create = async (carCreateDto: CarCreateDto) => {
-    return await this.carsRepository.create(carCreateDto);
+    try {
+      return await this.carsRepository.create(carCreateDto);
+    } catch (error) {
+      throw new HttpException(400, "Car create fail");
+    }
   };
 
   update = async (id: string, carUpdateDto: CarUpdateDto) => {

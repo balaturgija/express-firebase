@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
 import { CarsService } from "./cars.service";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 @injectable()
 export class CarsController {
@@ -11,9 +11,13 @@ export class CarsController {
     return res.status(200).send(result);
   };
 
-  create = async (req: Request, res: Response) => {
-    const result = await this.carsService.create(req.body);
-    return res.status(201).send(result);
+  create = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.carsService.create(req.body);
+      return res.status(201).send(result);
+    } catch (error) {
+      next(error);
+    }
   };
 
   update = async (req: Request, res: Response) => {
