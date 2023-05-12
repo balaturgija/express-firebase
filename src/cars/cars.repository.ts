@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import { CarUpdateDto } from "./dto/car-update.dto";
 import { db } from "../database";
 import { injectable } from "tsyringe";
+import { HttpException } from "../http.error";
 
 @injectable()
 export class CarsRepository {
@@ -21,6 +22,7 @@ export class CarsRepository {
   };
 
   create = async (carCreateDto: CarCreateDto) => {
+    throw new HttpException(409, "Error");
     const id = v4();
     const carCreate = {
       id: id,

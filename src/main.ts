@@ -7,6 +7,7 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerDefinition from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
 import { exceptionHandler } from "./middlewares/exceptionHandler.middleware";
+import bodyParser from "body-parser";
 
 dotenv.config({
   path: path.resolve(".env"),
@@ -19,6 +20,7 @@ const swaggerDocs = swaggerJSDoc({
   apis: [path.join(__dirname, "..", "src", "specs", "*.ts")],
 });
 
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
