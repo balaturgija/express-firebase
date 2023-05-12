@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validate, ValidationError } from "class-validator";
-import { HttpException } from "../http.error";
+import { HttpException } from "../filter/http.exception";
 
 export const validateBody = (dtoToValidate: ClassConstructor<unknown>) => {
   return async (req: Request, res: Response, next: NextFunction) => {

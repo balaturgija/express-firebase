@@ -16,19 +16,31 @@ export class CarsService {
     try {
       return await this.carsRepository.create(carCreateDto);
     } catch (error) {
-      throw new HttpException(400, "Car create fail");
+      throw new HttpException(409, "Car create fail");
     }
   };
 
   update = async (id: string, carUpdateDto: CarUpdateDto) => {
-    return await this.carsRepository.update(id, carUpdateDto);
+    try {
+      return await this.carsRepository.update(id, carUpdateDto);
+    } catch (error) {
+      throw new HttpException(409, "Car update fail");
+    }
   };
 
   getById = async (id: string) => {
-    return await this.carsRepository.getById(id);
+    try {
+      return await this.carsRepository.getById(id);
+    } catch (error) {
+      throw new HttpException(404, "Car not found");
+    }
   };
 
   delete = async (id: string) => {
-    return await this.carsRepository.delete(id);
+    try {
+      return await this.carsRepository.delete(id);
+    } catch (error) {
+      throw new HttpException(409, "Car delete fail");
+    }
   };
 }
