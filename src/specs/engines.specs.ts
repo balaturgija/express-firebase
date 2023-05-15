@@ -1,74 +1,75 @@
-//# Cars router specification
+//# Engines router specification
 
 /**
  * @swagger
  *
  * components:
  *  schemas:
- *      Car:
+ *      Engine:
  *          type: object
  *          properties:
  *              id:
  *                  type: string
  *                  format: uuid
- *              brand:
+ *              fuel:
  *                  type: string
- *              model:
+ *              horsePowers:
+ *                  type: number
+ *              createdAt:
  *                  type: string
- *              engine:
+ *                  format: date-time
+ *              updatedAt:
  *                  type: string
+ *                  format: date-time
  *
- *      CarCreate:
+ *
+ *      EngineCreate:
  *          type: object
  *          properties:
- *              brand:
+ *              fuel:
  *                  type: string
- *              model:
- *                  type: string
- *              engineId:
- *                  type: string
+ *              horsePowers:
+ *                  type: number
  *
- *      CarUpdate:
+ *      EngineUpdate:
  *          type: object
  *          properties:
- *              brand:
+ *              fuel:
  *                  type: string
- *              model:
- *                  type: string
- *              engine:
+ *              horsePowers:
  *                  type: string
  */
 
 /**
  * @swagger
  *
- * /cars:
+ * /engines:
  *      get:
  *          responses:
  *              200:
- *                  description: List of cars.
+ *                  description: Paginated list of Engines.
  *                  content:
  *                      application/json:
  *                          schema:
- *                              $ref: '#/components/schemas/Car'
+ *                              $ref: '#/components/schemas/Engine'
  *          tags:
- *              - cars
+ *              - engines
  *      post:
  *          requestBody:
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref:  '#/components/schemas/CarCreate'
+ *                          $ref:  '#/components/schemas/EngineCreate'
  *          responses:
  *              200:
  *                  content:
  *                      application/json:
  *                          schema:
- *                              $ref: '#/components/schemas/Car'
+ *                              $ref: '#/components/schemas/Engine'
  *          tags:
- *              - cars
+ *              - engines
  *
- * /cars/{id}:
+ * /engines/{id}:
  *      get:
  *          parameters:
  *          - in: path
@@ -79,15 +80,15 @@
  *             format: uuid
  *          responses:
  *              200:
- *                  description: Single car.
+ *                  description: Single engine.
  *                  content:
  *                      application/json:
  *                          schema:
- *                              $ref: '#/components/schemas/Car'
+ *                              $ref: '#/components/schemas/Engine'
  *              404:
- *                  description: Car not found.
+ *                  description: Engine not found.
  *          tags:
- *              - cars
+ *              - engines
  *
  *      put:
  *          parameters:
@@ -102,20 +103,20 @@
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/Car'
+ *                          $ref: '#/components/schemas/EngineUpdate'
  *          responses:
  *              201:
- *                  description: Single car.
+ *                  description: Engine car.
  *                  content:
  *                      application/json:
  *                          schema:
- *                              $ref: '#/components/schemas/Car'
+ *                              $ref: '#/components/schemas/Engine'
  *              400:
  *                  description: Validation failed.
  *              404:
- *                  description: Car not found.
+ *                  description: Engine not found.
  *          tags:
- *              - cars
+ *              - engines
  *
  *      delete:
  *          parameters:
@@ -127,9 +128,9 @@
  *              format: uuid
  *          responses:
  *              200:
- *                  description: Car deleted.
+ *                  description: Engine deleted.
  *              404:
- *                  description: Car not found.
+ *                  description: Engine not found.
  *          tags:
- *              - cars
+ *              - engines
  */
