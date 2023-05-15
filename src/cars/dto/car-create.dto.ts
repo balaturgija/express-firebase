@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsDefined, IsString } from "class-validator";
+import { IsDefined, IsString, IsUUID } from "class-validator";
 
 export class CarCreateDto {
   @Expose()
@@ -14,6 +14,7 @@ export class CarCreateDto {
 
   @Expose()
   @IsDefined()
+  @IsUUID()
   @IsString()
-  engine: string;
+  engineId: string;
 }
