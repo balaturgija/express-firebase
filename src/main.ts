@@ -8,13 +8,18 @@ import swaggerDefinition from "./swagger.json";
 import swaggerUi from "swagger-ui-express";
 import { exceptionHandler } from "./middlewares/exceptionHandler.middleware";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 dotenv.config({
   path: path.resolve(".env"),
 });
 
 const app: any = express();
-
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 const swaggerDocs = swaggerJSDoc({
   swaggerDefinition,
   apis: [path.join(__dirname, "..", "src", "specs", "*.ts")],
