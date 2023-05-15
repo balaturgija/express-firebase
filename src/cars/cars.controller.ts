@@ -1,6 +1,7 @@
 import { injectable } from "tsyringe";
 import { CarsService } from "./cars.service";
 import { NextFunction, Request, Response } from "express";
+import { CarCreateDto } from "./dto/car-create.dto";
 
 @injectable()
 export class CarsController {
@@ -12,8 +13,9 @@ export class CarsController {
   };
 
   create = async (req: Request, res: Response, next: NextFunction) => {
+    const body: CarCreateDto = req.body;
     try {
-      const result = await this.carsService.create(req.body);
+      const result = await this.carsService.create(body);
       return res.status(201).send(result);
     } catch (error) {
       next(error);
