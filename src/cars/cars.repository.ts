@@ -18,7 +18,7 @@ export class CarsRepository {
   };
 
   getById = async (id: string) => {
-    return this.dbRef.doc(id).get();
+    return await this.dbRef.doc(id).get();
   };
 
   create = async (carCreateDto: CarCreateDto) => {
