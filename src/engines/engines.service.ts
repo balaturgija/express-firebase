@@ -1,25 +1,25 @@
 import { injectable } from "tsyringe";
-import { HttpException } from "../http.error";
 import { EngineCreateDto } from "./dto/engine-create.dto";
 import { EnginesRepsoitory } from "./enignes.repository";
+import { EngineNotFoundException } from "./exceptions/engone-not-found.exception";
+import { Engine } from "./modules/engine.module";
 
 @injectable()
-export class EngineService {
+export class EnginesService {
   constructor(private readonly enginesRepository: EnginesRepsoitory) {}
 
   getById = async (id: string) => {
-    try {
-      return await this.enginesRepository.getById(id);
-    } catch (error) {
-      throw new HttpException(404, "Engine not found");
-    }
+    const engineSnapshot = await this.enginesRepository.getById(id);
+    if (!engineSnapshot.exists) throw new EngineNotFoundException();
+    const result = engineSnapshot.data();
+    return new Engine(result);
   };
 
   create = async (engineCreateDto: EngineCreateDto) => {
     try {
       return await this.enginesRepository.create(engineCreateDto);
     } catch (error) {
-      throw new HttpException(409, "Engine create fail");
+      throw new EngineNotFoundException();
     }
   };
 }
