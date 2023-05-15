@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { container } from "tsyringe";
+import { engineCheck } from "../middlewares/engine-check.middleware";
 import { validateBody } from "../middlewares/requestBody.middleware";
 import { CarsController } from "./cars.controller";
 import { CarCreateDto } from "./dto/car-create.dto";
@@ -9,7 +10,12 @@ export const carsRouter = Router();
 const carsController = container.resolve(CarsController);
 
 carsRouter.get("/", carsController.findAll);
-carsRouter.post("/", validateBody(CarCreateDto), carsController.create);
+carsRouter.post(
+  "/",
+  validateBody(CarCreateDto),
+  engineCheck(),
+  carsController.create
+);
 carsRouter.put("/:id", validateBody(CarUpdateDto), carsController.update);
 carsRouter.get("/:id", carsController.getById);
 carsRouter.delete("/:id", carsController.delete);
