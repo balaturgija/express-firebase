@@ -7,3 +7,6 @@ initializeApp({
 });
 
 export const db = admin.firestore();
+db.settings({
+  ignoreUndefinedProperties: false,
+});
