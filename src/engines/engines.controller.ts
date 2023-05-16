@@ -23,4 +23,13 @@ export class EnginesController {
       next(error);
     }
   };
+
+  update = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.enginesService.update(req.params.id, req.body);
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -7,11 +7,11 @@ export interface Engine {
 }
 
 export class Engine {
-  constructor(data: Engine) {
+  constructor(data: FirebaseFirestore.DocumentData) {
     this.id = data.id;
     this.fuel = data.fuel;
     this.horsePowers = data.horsePowers;
-    this.createdAt = new Date(data.createdAt);
-    this.updatedAt = data.updatedAt === null ? null : new Date(data.updatedAt);
+    this.createdAt = data.createdAt.toDate();
+    this.updatedAt = data.updatedAt === null ? null : data.updatedAt.toDate();
   }
 }
