@@ -1,5 +1,5 @@
 import { injectable } from "tsyringe";
-import { db } from "../database";
+import { db } from "../firebase/database";
 import { EngineCreateDto } from "./dto/engine-create.dto";
 import { v4 } from "uuid";
 
@@ -22,7 +22,6 @@ export class EnginesRepsoitory {
       ...engineCreateDto,
     };
     await this.dbRef.doc(id).set(engineCreate);
-    console.log(engineCreate);
     return engineCreate;
   };
 }

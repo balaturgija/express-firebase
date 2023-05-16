@@ -1,7 +1,7 @@
 import { CarCreateDto } from "./dto/car-create.dto";
 import { v4 } from "uuid";
 import { CarUpdateDto } from "./dto/car-update.dto";
-import { db } from "../database";
+import { db } from "../firebase/database";
 import { injectable } from "tsyringe";
 import { HttpException } from "../http.error";
 
