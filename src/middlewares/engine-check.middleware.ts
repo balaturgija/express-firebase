@@ -7,7 +7,11 @@ export const engineCheck = () => {
   return async (req: Request, response: Response, next: NextFunction) => {
     const engineService = new EnginesService(new EnginesRepsoitory());
     try {
-      const { engineId } = req.body;
+      let engineId;
+      if (req.body.engineId) engineId = req.body.engineId;
+
+      engineId = req.params.id;
+
       await engineService.getById(engineId);
 
       next();
