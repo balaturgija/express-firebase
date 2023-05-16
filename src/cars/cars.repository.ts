@@ -22,7 +22,6 @@ export class CarsRepository {
   };
 
   create = async (carCreateDto: CarCreateDto) => {
-    throw new HttpException(409, "Error");
     const id = v4();
     const carCreate = {
       id: id,
