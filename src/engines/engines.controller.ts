@@ -32,4 +32,13 @@ export class EnginesController {
       next(error);
     }
   };
+
+  delete = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await this.enginesService.delete(req.params.id);
+      return res.status(200);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

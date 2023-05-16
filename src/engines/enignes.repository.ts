@@ -24,9 +24,13 @@ export class EnginesRepsoitory {
   };
 
   update = async (id: string, engineUpdateDto: EngineUpdateDto) => {
-    const result = await this.dbRef.doc(id).update({ ...engineUpdateDto });
+    await this.dbRef.doc(id).update({ ...engineUpdateDto });
     return {
       ...engineUpdateDto,
     };
+  };
+
+  delete = async (id: string) => {
+    return await this.dbRef.doc(id).delete();
   };
 }

@@ -3,6 +3,7 @@ import { EngineCreateDto } from "./dto/engine-create.dto";
 import { EngineUpdateDto } from "./dto/engine-update.dto";
 import { EnginesRepsoitory } from "./enignes.repository";
 import { EngineCreateException } from "./exceptions/engine-create.exception";
+import { EngineDeleteException } from "./exceptions/engine-delete.exception";
 import { EngineUpdateException } from "./exceptions/engine-update.exception";
 import { EngineNotFoundException } from "./exceptions/engone-not-found.exception";
 import { Engine } from "./modules/engine.module";
@@ -39,6 +40,14 @@ export class EnginesService {
       });
     } catch (error) {
       throw new EngineUpdateException();
+    }
+  };
+
+  delete = async (id: string) => {
+    try {
+      return await this.enginesRepository.delete(id);
+    } catch (error) {
+      throw new EngineDeleteException();
     }
   };
 }

@@ -21,3 +21,4 @@ enginesRouter.put(
   engineCheck(),
   enginesController.update
 );
+enginesRouter.delete("/:id", engineCheck(), enginesController.delete);
