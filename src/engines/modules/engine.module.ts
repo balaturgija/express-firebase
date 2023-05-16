@@ -7,7 +7,7 @@ export interface Engine {
 }
 
 export class Engine {
-  constructor(data: FirebaseFirestore.DocumentData | undefined) {
+  constructor(data: FirebaseFirestore.DocumentData) {
     this.id = data.id;
     this.fuel = data.fuel;
     this.horsePowers = data.horsePowers;
