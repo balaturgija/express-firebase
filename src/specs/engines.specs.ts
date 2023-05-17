@@ -38,6 +38,18 @@
  *                  type: string
  *              horsePowers:
  *                  type: string
+ *
+ *      EnginePaginated:
+ *          type: object
+ *          properties:
+ *              count:
+ *                  type: number
+ *              items:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/components/schemas/Engine'
+ *
+ *
  */
 
 /**
@@ -45,13 +57,34 @@
  *
  * /engines:
  *      get:
+ *          parameters:
+ *             - in: query
+ *               name: searchTerm
+ *               type: string
+ *             - in: query
+ *               name: sortBy
+ *               schema:
+ *                  type: array
+ *                  items:
+ *                      type: string
+ *               style: matrix
+ *               explode: true
+ *             - in: query
+ *               name: sortDirection
+ *               type: string
+ *             - in: query
+ *               name: page
+ *               type: number
+ *             - in: query
+ *               name: rpp
+ *               type: number
  *          responses:
  *              200:
  *                  description: Paginated list of Engines.
  *                  content:
  *                      application/json:
  *                          schema:
- *                              $ref: '#/components/schemas/Engine'
+ *                              $ref: '#/components/schemas/EnginePaginated'
  *          tags:
  *              - engines
  *      post:
