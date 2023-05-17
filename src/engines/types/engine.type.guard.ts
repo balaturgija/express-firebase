@@ -1,4 +1,4 @@
-import { Engine } from "../modules/engine.module";
+import { Engine } from "../modules/engine.modul";
 
 export function isEngine(
   data: FirebaseFirestore.DocumentData | undefined
