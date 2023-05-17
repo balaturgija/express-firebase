@@ -1,4 +1,4 @@
-import { Engine } from "../../engines/modules/engine.module";
+import { Engine } from "../../engines/modules/engine.modul";
 
 export interface Car {
   id: string;
@@ -11,7 +11,7 @@ export interface Car {
 }
 
 export class Car {
-  constructor(data: FirebaseFirestore.DocumentData | undefined) {
+  constructor(data: FirebaseFirestore.DocumentData) {
     this.id = data.id;
     this.brand = data.brand;
     this.model = data.model;
