@@ -1,17 +1,30 @@
+import QueryString from "qs";
 import { injectable } from "tsyringe";
+import { HttpException } from "../http.error";
+import { Pager } from "../util/pager";
+import { Sorter } from "../util/sorter";
 import { EngineCreateDto } from "./dto/engine-create.dto";
+import { EngineFilterDto } from "./dto/engine-filter.dto";
 import { EngineUpdateDto } from "./dto/engine-update.dto";
-import { EnginesRepsoitory } from "./enignes.repository";
+import { EnginesRepository } from "./enignes.repository";
 import { EngineCreateException } from "./exceptions/engine-create.exception";
 import { EngineDeleteException } from "./exceptions/engine-delete.exception";
 import { EngineUpdateException } from "./exceptions/engine-update.exception";
 import { EngineNotFoundException } from "./exceptions/engone-not-found.exception";
-import { Engine } from "./modules/engine.module";
+import { Engine } from "./modules/engine.modul";
 import { isEngine } from "./types/engine.type.guard";
 
 @injectable()
 export class EnginesService {
-  constructor(private readonly enginesRepository: EnginesRepsoitory) {}
+  constructor(private readonly enginesRepository: EnginesRepository) {}
+
+  findAll = async (query: QueryString.ParsedQs) => {
+    const filter: EngineFilterDto = JSON.parse(JSON.stringify(query));
+    const pager = new Pager(filter.page, filter.rpp);
+    const sorter = new Sorter(filter.sordBy, filter.sortDirection);
+
+    return await this.enginesRepository.findAll(pager, sorter);
+  };
 
   getById = async (id: string) => {
     const engineSnapshot = await this.enginesRepository.getById(id);

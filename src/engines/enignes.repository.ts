@@ -3,10 +3,25 @@ import { db } from "../firebase/database";
 import { EngineCreateDto } from "./dto/engine-create.dto";
 import { v4 } from "uuid";
 import { EngineUpdateDto } from "./dto/engine-update.dto";
+import { Pager } from "../util/pager";
+import { Sorter } from "../util/sorter";
+import { Engine } from "./modules/engine.modul";
 
 @injectable()
-export class EnginesRepsoitory {
+export class EnginesRepository {
   private dbRef = db.collection("engines");
+
+  findAll = async (pager: Pager, sorter: Sorter) => {
+    const result = await this.dbRef
+      .offset(pager.getOffset())
+      .limit(pager.getSize())
+      .orderBy(sorter.orderBy, sorter.sortBy)
+      .get();
+
+    return result.docs.map((doc) => {
+      return new Engine(doc.data());
+    });
+  };
 
   getById = async (id: string) => {
     return await this.dbRef.doc(id).get();
