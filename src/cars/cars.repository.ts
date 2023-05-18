@@ -3,18 +3,25 @@ import { v4 } from "uuid";
 import { CarUpdateDto } from "./dto/car-update.dto";
 import { db } from "../firebase/database";
 import { injectable } from "tsyringe";
-import { HttpException } from "../http.error";
+import { Pager } from "../util/pager";
+import { Sorter } from "../util/sorter";
 
 @injectable()
 export class CarsRepository {
   private dbRef = db.collection("cars");
 
-  findAll = async () => {
-    try {
-      return await this.dbRef.get();
-    } catch (error) {
-      console.log(error);
-    }
+  findAll = async (pager: Pager, sorter: Sorter) => {
+    const collectionSnapshot = await this.dbRef.get();
+    const cars = await collectionSnapshot.query
+      .offset(pager.getOffset())
+      .limit(pager.getSize())
+      .orderBy(sorter.orderBy, sorter.sortBy)
+      .get();
+
+    return {
+      cars,
+      totalPages: Math.ceil(collectionSnapshot.size / pager.getSize()),
+    };
   };
 
   getById = async (id: string) => {
@@ -22,22 +29,19 @@ export class CarsRepository {
   };
 
   create = async (carCreateDto: CarCreateDto) => {
-    const id = v4();
     const carCreate = {
-      id: id,
+      id: v4(),
+      createdAt: new Date(),
+      updatedAt: null,
       ...carCreateDto,
     };
-    await this.dbRef.doc(id).set(carCreate);
+    await this.dbRef.doc(carCreate.id).set(carCreate);
     return carCreate;
   };
 
   update = async (id: string, carUpdateDto: CarUpdateDto) => {
-    await db
-      .collection("cars")
-      .doc(id)
-      .update({ ...carUpdateDto });
+    await this.dbRef.doc(id).update({ ...carUpdateDto });
     return {
-      id,
       ...carUpdateDto,
     };
   };

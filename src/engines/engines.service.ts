@@ -1,6 +1,4 @@
-import QueryString from "qs";
 import { injectable } from "tsyringe";
-import { HttpException } from "../http.error";
 import { Pager } from "../util/pager";
 import { Sorter } from "../util/sorter";
 import { EngineCreateDto } from "./dto/engine-create.dto";
@@ -11,8 +9,8 @@ import { EngineCreateException } from "./exceptions/engine-create.exception";
 import { EngineDeleteException } from "./exceptions/engine-delete.exception";
 import { EngineUpdateException } from "./exceptions/engine-update.exception";
 import { EngineNotFoundException } from "./exceptions/engone-not-found.exception";
-import { Engine } from "./modules/engine.modul";
-import { PaginateEngine } from "./modules/paginate-engine.modul";
+import { Engine } from "./models/engine.modul";
+import { PaginateEngine } from "./models/paginate-engine.modul";
 import { isEngine } from "./types/engine.type.guard";
 
 @injectable()
@@ -24,7 +22,7 @@ export class EnginesService {
     const sorter = new Sorter(filter.sordBy, filter.sortDirection);
 
     const result = await this.enginesRepository.findAll(pager, sorter);
-    const engines = result.engines!.docs.map((doc) => {
+    const engines = result.engines.docs.map((doc) => {
       return new Engine(doc.data());
     });
 

@@ -9,12 +9,8 @@ export class EnginesController {
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
     const query: EngineFilterDto = JSON.parse(JSON.stringify(req.query));
-    try {
-      const result = await this.enginesService.findAll(query);
-      return res.status(200).send(result);
-    } catch (error) {
-      next(error);
-    }
+    const result = await this.enginesService.findAll(query);
+    return res.status(200).send(result);
   };
 
   create = async (req: Request, res: Response, next: NextFunction) => {

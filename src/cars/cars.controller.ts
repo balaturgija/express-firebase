@@ -2,13 +2,15 @@ import { injectable } from "tsyringe";
 import { CarsService } from "./cars.service";
 import { NextFunction, Request, Response } from "express";
 import { CarCreateDto } from "./dto/car-create.dto";
+import { CarFilterDto } from "./dto/car-filter.dto";
 
 @injectable()
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
   findAll = async (req: Request, res: Response) => {
-    const result = await this.carsService.findAll();
+    const filter: CarFilterDto = JSON.parse(JSON.stringify(req.query));
+    const result = await this.carsService.findAll(filter);
     return res.status(200).send(result);
   };
 
@@ -22,19 +24,19 @@ export class CarsController {
     }
   };
 
-  update = async (req: Request, res: Response, next: NextFunction) => {
+  getById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.carsService.update(req.params.id, req.body);
-      return res.status(201).send(result);
+      const result = await this.carsService.getById(req.params.id);
+      return res.status(200).send(result);
     } catch (error) {
       next(error);
     }
   };
 
-  getById = async (req: Request, res: Response, next: NextFunction) => {
+  update = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.carsService.getById(req.params.id);
-      return res.status(200).send(result);
+      const result = await this.carsService.update(req.params.id, req.body);
+      return res.status(201).send(result);
     } catch (error) {
       next(error);
     }

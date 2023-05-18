@@ -5,7 +5,6 @@ import { v4 } from "uuid";
 import { EngineUpdateDto } from "./dto/engine-update.dto";
 import { Pager } from "../util/pager";
 import { Sorter } from "../util/sorter";
-import { Engine } from "./modules/engine.modul";
 
 @injectable()
 export class EnginesRepository {

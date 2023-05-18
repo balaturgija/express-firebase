@@ -1,5 +1,5 @@
 import { isEngine } from "../../engines/types/engine.type.guard";
-import { Car } from "../modules/car.modul";
+import { Car } from "../models/car.model";
 
 export function isCar(
   data: FirebaseFirestore.DocumentData | undefined

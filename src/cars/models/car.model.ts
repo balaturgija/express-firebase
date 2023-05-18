@@ -1,4 +1,4 @@
-import { Engine } from "../../engines/modules/engine.modul";
+import { Engine } from "../../engines/models/engine.modul";
 
 export interface Car {
   id: string;
