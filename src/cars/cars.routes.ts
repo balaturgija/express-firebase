@@ -15,7 +15,7 @@ const carsController = container.resolve(CarsController);
 carsRouter.get(
   "/",
   queryFilter(CarFilterDto),
-  querySorter(["id"]),
+  querySorter(["id", "brand", "model", "kilometers", "createdAt", "updatedAt"]),
   carsController.findAll
 );
 carsRouter.post(
