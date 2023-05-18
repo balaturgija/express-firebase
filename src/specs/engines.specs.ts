@@ -74,10 +74,12 @@
  *               type: string
  *             - in: query
  *               name: page
- *               type: number
+ *               schema:
+ *                  type: number
  *             - in: query
  *               name: rpp
- *               type: number
+ *               schema:
+ *                  type: number
  *          responses:
  *              200:
  *                  description: Paginated list of Engines.

@@ -27,7 +27,6 @@ const swaggerDocs = swaggerJSDoc({
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 app.use("/", router);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

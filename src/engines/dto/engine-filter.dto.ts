@@ -1,5 +1,5 @@
-import { Expose } from "class-transformer";
-import { IsOptional, IsString } from "class-validator";
+import { Expose, Type } from "class-transformer";
+import { IsInt, IsOptional, IsString } from "class-validator";
 import { SortDirection } from "../../util/sorter";
 
 export class EngineFilterDto {
@@ -9,11 +9,15 @@ export class EngineFilterDto {
   searchTerm: string;
 
   @Expose()
+  @Type(() => Number)
   @IsOptional()
+  @IsInt()
   page: number;
 
   @Expose()
+  @Type(() => Number)
   @IsOptional()
+  @IsInt()
   rpp: number;
 
   @Expose()
@@ -24,9 +28,4 @@ export class EngineFilterDto {
   @Expose()
   @IsOptional()
   sortDirection: SortDirection;
-
-  @Expose()
-  @IsString()
-  @IsOptional()
-  include: string;
 }

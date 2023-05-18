@@ -12,15 +12,17 @@ export class EnginesRepository {
   private dbRef = db.collection("engines");
 
   findAll = async (pager: Pager, sorter: Sorter) => {
-    const result = await this.dbRef
+    const collectionSnapshot = await this.dbRef.get();
+    const engines = await collectionSnapshot.query
       .offset(pager.getOffset())
       .limit(pager.getSize())
       .orderBy(sorter.orderBy, sorter.sortBy)
       .get();
 
-    return result.docs.map((doc) => {
-      return new Engine(doc.data());
-    });
+    return {
+      engines,
+      totalPages: Math.ceil(collectionSnapshot.size / pager.getSize()),
+    };
   };
 
   getById = async (id: string) => {

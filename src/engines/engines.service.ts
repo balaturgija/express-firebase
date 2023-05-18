@@ -12,24 +12,29 @@ import { EngineDeleteException } from "./exceptions/engine-delete.exception";
 import { EngineUpdateException } from "./exceptions/engine-update.exception";
 import { EngineNotFoundException } from "./exceptions/engone-not-found.exception";
 import { Engine } from "./modules/engine.modul";
+import { PaginateEngine } from "./modules/paginate-engine.modul";
 import { isEngine } from "./types/engine.type.guard";
 
 @injectable()
 export class EnginesService {
   constructor(private readonly enginesRepository: EnginesRepository) {}
 
-  findAll = async (query: QueryString.ParsedQs) => {
-    const filter: EngineFilterDto = JSON.parse(JSON.stringify(query));
+  findAll = async (filter: EngineFilterDto) => {
     const pager = new Pager(filter.page, filter.rpp);
     const sorter = new Sorter(filter.sordBy, filter.sortDirection);
 
-    return await this.enginesRepository.findAll(pager, sorter);
+    const result = await this.enginesRepository.findAll(pager, sorter);
+    const engines = result.engines!.docs.map((doc) => {
+      return new Engine(doc.data());
+    });
+
+    return new PaginateEngine(engines, pager.page, result.totalPages);
   };
 
   getById = async (id: string) => {
     const engineSnapshot = await this.enginesRepository.getById(id);
     const engine = engineSnapshot.data();
-    if (!isEngine(engine) || !engineSnapshot.exists)
+    if (!engineSnapshot.exists || !isEngine(engine))
       throw new EngineNotFoundException();
 
     return new Engine(engine);

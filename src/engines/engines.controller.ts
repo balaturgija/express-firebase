@@ -8,8 +8,9 @@ export class EnginesController {
   constructor(private readonly enginesService: EnginesService) {}
 
   findAll = async (req: Request, res: Response, next: NextFunction) => {
+    const query: EngineFilterDto = JSON.parse(JSON.stringify(req.query));
     try {
-      const result = await this.enginesService.findAll(req.query);
+      const result = await this.enginesService.findAll(query);
       return res.status(200).send(result);
     } catch (error) {
       next(error);
