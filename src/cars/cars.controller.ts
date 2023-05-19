@@ -15,9 +15,8 @@ export class CarsController {
   };
 
   create = async (req: Request, res: Response, next: NextFunction) => {
-    const body: CarCreateDto = req.body;
     try {
-      const result = await this.carsService.create(body);
+      const result = await this.carsService.create(req.body);
       return res.status(201).send(result);
     } catch (error) {
       next(error);
