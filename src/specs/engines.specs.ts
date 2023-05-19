@@ -44,6 +44,10 @@
  *          properties:
  *              count:
  *                  type: number
+ *              currentPage:
+ *                  type: number
+ *              totalPages:
+ *                  type: number
  *              items:
  *                  type: array
  *                  items:
